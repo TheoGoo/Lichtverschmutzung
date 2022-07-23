@@ -51,14 +51,13 @@ public class MainGUI {
             }
         });
         /*
-        Temporary solution for resizing the main window
+        Resize window
          */
-        MainWindow.addMouseMotionListener(new MouseMotionAdapter() {
+        Resize_label.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                //get curser position and set as size
-                frame.setSize(e.getX(),e.getY());
+                frame.setSize(MouseInfo.getPointerInfo().getLocation().x - frame.getX(),MouseInfo.getPointerInfo().getLocation().y - frame.getY());
             }
         });
     }
@@ -89,4 +88,5 @@ public class MainGUI {
     private JLabel CloseButton;
     private JLabel MinimizeButton;
     private JPanel WindowContent;
+    private JLabel Resize_label;
 }
