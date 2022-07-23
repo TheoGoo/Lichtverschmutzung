@@ -57,7 +57,15 @@ public class MainGUI {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                frame.setSize(MouseInfo.getPointerInfo().getLocation().x - frame.getX(),MouseInfo.getPointerInfo().getLocation().y - frame.getY());
+                int width = MouseInfo.getPointerInfo().getLocation().x-frame.getX(), height = MouseInfo.getPointerInfo().getLocation().y-frame.getY();
+                if(width <= 800){
+                    width = 800;
+                }
+                if(height <= 600){
+                    height = 600;
+                }
+
+                frame.setSize(width,height);
             }
         });
     }
