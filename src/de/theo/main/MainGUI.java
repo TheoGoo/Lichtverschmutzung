@@ -2,14 +2,24 @@ package de.theo.main;
 
 import com.formdev.flatlaf.intellijthemes.FlatXcodeDarkIJTheme;
 import de.theo.configs.ConfigCreate;
+import de.theo.configs.UpdateConfig;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainGUI {
 
     public MainGUI() {
 
+        UsernameConfirm.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                new UpdateConfig().updateEntry("username",Username.getText());
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -45,4 +55,6 @@ public class MainGUI {
 
 
     private JPanel MainWindow;
+    private JButton UsernameConfirm;
+    private JTextField Username;
 }
