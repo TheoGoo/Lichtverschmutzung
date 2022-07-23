@@ -1,100 +1,34 @@
 package de.theo.main;
 
+import com.formdev.flatlaf.intellijthemes.FlatXcodeDarkIJTheme;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-
 
 public class MainGUI {
 
-    //create JFrame in class to make it accessible to outside the main method
-    static JFrame frame = new JFrame("GText");
-    //stores initial position of the mouse cursor (can be used for moving windows and maybe more in the future)
-    int pX, pY;
-
     public MainGUI() {
 
-        /*
-        Move the entire window around without using the default "decoration"
-         */
-        TitleBar.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent me) {
-                // Get x,y and store them
-                pX = me.getX();
-                pY = me.getY();
-            }
-        });
-        TitleBar.addMouseMotionListener(new MouseMotionAdapter() {
-            public void mouseDragged(MouseEvent me) {
-                //calculate new window position
-                frame.setLocation(frame.getLocation().x + me.getX() - pX,
-                        frame.getLocation().y + me.getY() - pY);
-            }
-        });
-        /*
-        Basic functionality like minimize and close buttons
-         */
-        CloseButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                System.exit(0);
-            }
-        });
-        MinimizeButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                frame.setState(Frame.ICONIFIED);
-            }
-        });
-        /*
-        Resize window
-         */
-        Resize_label.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                super.mouseDragged(e);
-                int width = MouseInfo.getPointerInfo().getLocation().x-frame.getX(), height = MouseInfo.getPointerInfo().getLocation().y-frame.getY();
-                if(width <= 800){
-                    width = 800;
-                }
-                if(height <= 600){
-                    height = 600;
-                }
-
-                frame.setSize(width,height);
-            }
-        });
     }
 
     public static void main(String[] args) {
-        setIcon();
+        FlatXcodeDarkIJTheme.setup();
+        try {
+            UIManager.setLookAndFeel( new FlatXcodeDarkIJTheme() );
+        } catch( Exception ex ) {
+            System.err.println( "Failed to initialize LaF" );
+        }
+        JFrame frame = new JFrame("GText");
         frame.setSize(1280,720);
-        frame.setUndecorated(true);
         frame.setContentPane(new MainGUI().MainWindow);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-    }
-
-    /*
-    Setting the icon for the task bar
-     */
-    static void setIcon(){
         java.net.URL url = ClassLoader.getSystemResource("de/theo/icons/gtext_icon.jpg");
         Toolkit kit = Toolkit.getDefaultToolkit();
         Image img = kit.createImage(url);
         frame.setIconImage(img);
+        frame.setVisible(true);
     }
 
 
     private JPanel MainWindow;
-    private JPanel TitleBar;
-    private JLabel AppName;
-    private JLabel CloseButton;
-    private JLabel MinimizeButton;
-    private JPanel WindowContent;
-    private JLabel Resize_label;
 }
