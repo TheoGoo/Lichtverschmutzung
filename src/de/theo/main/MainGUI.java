@@ -25,7 +25,7 @@ public class MainGUI {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                ReadTest.setText(new ReadConfig().readConfig("host"));
+                ReadTest.setText(new ReadConfig().readConfig("username"));
             }
         });
     }
