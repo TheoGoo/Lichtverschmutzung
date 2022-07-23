@@ -2,6 +2,7 @@ package de.theo.main;
 
 import com.formdev.flatlaf.intellijthemes.FlatXcodeDarkIJTheme;
 import de.theo.configs.ConfigCreate;
+import de.theo.configs.ReadConfig;
 import de.theo.configs.UpdateConfig;
 
 import javax.swing.*;
@@ -18,6 +19,13 @@ public class MainGUI {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 new UpdateConfig().updateEntry("username",Username.getText());
+            }
+        });
+        ReadTest.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                ReadTest.setText(new ReadConfig().readConfig("host"));
             }
         });
     }
@@ -57,4 +65,5 @@ public class MainGUI {
     private JPanel MainWindow;
     private JButton UsernameConfirm;
     private JTextField Username;
+    private JButton ReadTest;
 }
