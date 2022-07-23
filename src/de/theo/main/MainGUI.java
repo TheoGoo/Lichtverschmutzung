@@ -1,6 +1,7 @@
 package de.theo.main;
 
 import com.formdev.flatlaf.intellijthemes.FlatXcodeDarkIJTheme;
+import de.theo.configs.ConfigCreate;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +13,12 @@ public class MainGUI {
     }
 
     public static void main(String[] args) {
+        initGUI();
+        initConfig();
+
+    }
+
+    static void initGUI(){
         FlatXcodeDarkIJTheme.setup();
         try {
             UIManager.setLookAndFeel( new FlatXcodeDarkIJTheme() );
@@ -27,6 +34,13 @@ public class MainGUI {
         Image img = kit.createImage(url);
         frame.setIconImage(img);
         frame.setVisible(true);
+    }
+
+    static void initConfig(){
+        ConfigCreate configCreate = new ConfigCreate();
+        if(configCreate.CheckForConfig() == 0){
+            configCreate.creation();
+        }
     }
 
 
