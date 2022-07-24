@@ -21,6 +21,6 @@ public class ReadConfig {
         } catch (IOException ex) {
             // I/O error
         }
-        return "error";
+        return"";
     }
 }

@@ -18,7 +18,7 @@ public class MainGUI {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                new UpdateConfig().updateEntry("username",Username.getText());
+                new UpdateConfig().createEntry("username",Username.getText());
             }
         });
         ReadTest.addMouseListener(new MouseAdapter() {
@@ -26,6 +26,13 @@ public class MainGUI {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 ReadTest.setText(new ReadConfig().readConfig("username"));
+            }
+        });
+        RemoveUsername.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                new UpdateConfig().deleteEntry("username");
             }
         });
     }
@@ -66,4 +73,5 @@ public class MainGUI {
     private JButton UsernameConfirm;
     private JTextField Username;
     private JButton ReadTest;
+    private JButton RemoveUsername;
 }
