@@ -12,9 +12,9 @@ public class ConfigCreate {
 
         try {
             Properties props = new Properties();
-            props.setProperty("host", "placeholder");
+            props.setProperty("Entry_number", "0");
             FileWriter writer = new FileWriter(configFile);
-            props.store(writer, "Server IP");
+            props.store(writer, "Create config");
             writer.close();
         } catch (FileNotFoundException ex) {
             // file does not exist
