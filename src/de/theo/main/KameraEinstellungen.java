@@ -22,7 +22,7 @@ public class KameraEinstellungen {
                 UpdateConfig config = new UpdateConfig();
                 config.createEntry("Brennweite",brennweiteEingabe.getText());
                 config.createEntry("Pixel",pixelEingabe.getText());
-                config.createEntry("Abbildungsmassstab",Abbildungsmassstab());
+                config.createEntry("Winkelsekunde",Abbildungsmassstab());
             }
         });
     }

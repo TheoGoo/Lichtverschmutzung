@@ -40,8 +40,11 @@ public class MainGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 UpdateConfig config = new UpdateConfig();
-                config.createEntry("FlaecheAbbildungsmasstab",FlaecheAbbildungsmasstab());
-                config.createEntry("Öffnungsverhältnis",FlaechenHelligkeit.getText());
+                config.createEntry("Quadratbogensekunden", QuadratbogensekundenBerechnen());
+                config.createEntry("MagnitudeStern",FlaechenHelligkeit.getText());
+                config.createEntry("FlaechenhelligkeitStern",FlaechenHelligkeitBerechnen());
+                config.createEntry("GroesseObjekt",DurchmesserPixel.getText());
+                FlaechenHelligkeitOutput.setText("Die Flächenhelligkeit des Sterns beträgt: " + FlaechenHelligkeitBerechnen() + " mag/arcsec^2");
 
             }
         });
@@ -78,19 +81,18 @@ public class MainGUI {
         }
     }
 
-    private String FlaecheAbbildungsmasstab(){
+    private String QuadratbogensekundenBerechnen(){
         ReadConfig config = new ReadConfig();
-        BigDecimal flaecheAbbildungsmasstab = new BigDecimal(DurchmesserPixel.getText()).multiply(new BigDecimal(config.readConfig("Abbildungsmassstab"))).divide(new BigDecimal("2"),4,BigDecimal.ROUND_HALF_UP).pow(2).multiply(new BigDecimal(Math.PI));
+        BigDecimal quadratbogensekunden = new BigDecimal(DurchmesserPixel.getText()).multiply(new BigDecimal(config.readConfig("Winkelsekunde"))).divide(new BigDecimal("2"),4,BigDecimal.ROUND_HALF_UP).pow(2).multiply(new BigDecimal(Math.PI));
         //https://archiv.astronomicum.de/modules.php?name=News&file=article&sid=108
-        return flaecheAbbildungsmasstab.toString();
+        return quadratbogensekunden.toString();
     }
 
-    private String FlaechenHelligkeit(){
+    private String FlaechenHelligkeitBerechnen(){
         ReadConfig config = new ReadConfig();
-        BigDecimal FHm = new BigDecimal("-2.5").multiply(new BigDecimal(FlaechenHelligkeit.getText()).divide(new BigDecimal(config.readConfig("FlaecheAbbildungsmasstab")),4,BigDecimal.ROUND_HALF_UP));
-
+        double FHm = Double.parseDouble(config.readConfig("MagnitudeStern")) + (2.5*Math.log10(Double.parseDouble(config.readConfig("Quadratbogensekunden"))));
         //https://archiv.astronomicum.de/modules.php?name=News&file=article&sid=108
-        return null;
+        return FHm+"";
     }
 
 
@@ -100,4 +102,5 @@ public class MainGUI {
     private JButton PixelFlaecheOk;
     private JTextField DurchmesserPixel;
     private JTextField FlaechenHelligkeit;
+    private JTextField FlaechenHelligkeitOutput;
 }
