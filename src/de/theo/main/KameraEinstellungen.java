@@ -15,7 +15,9 @@ public class KameraEinstellungen {
     private JButton okButton;
 
     public KameraEinstellungen() {
-
+        ReadConfig config = new ReadConfig();
+        brennweiteEingabe.setText(config.readConfig("Brennweite"));
+        pixelEingabe.setText(config.readConfig("Pixel"));
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -26,7 +28,6 @@ public class KameraEinstellungen {
             }
         });
     }
-
     private String Abbildungsmassstab(){
         ReadConfig readConfig = new ReadConfig();
         BigDecimal bigDecimal = new BigDecimal("206").multiply(new BigDecimal(readConfig.readConfig("Pixel"))).divide(new BigDecimal(readConfig.readConfig("Brennweite")),4,BigDecimal.ROUND_HALF_UP);

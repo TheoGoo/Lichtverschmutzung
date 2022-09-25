@@ -15,6 +15,9 @@ import java.math.BigDecimal;
 public class MainGUI {
 
     public MainGUI() {
+        ReadConfig config = new ReadConfig();
+        DurchmesserPixel.setText(config.readConfig("GroesseObjekt"));
+        FlaechenHelligkeit.setText(config.readConfig("MagnitudeStern"));
 
         einstellungenButton.addActionListener(new ActionListener() {
             @Override
@@ -53,7 +56,6 @@ public class MainGUI {
     public static void main(String[] args) {
         initGUI();
         initConfig();
-
     }
 
     static void initGUI(){
