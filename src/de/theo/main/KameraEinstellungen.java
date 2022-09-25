@@ -29,15 +29,13 @@ public class KameraEinstellungen {
 
     private String Abbildungsmassstab(){
         ReadConfig readConfig = new ReadConfig();
-        BigDecimal bigDecimal = new BigDecimal("206").multiply(new BigDecimal(readConfig.readConfig("Pixel"))).divide(new BigDecimal(readConfig.readConfig("Brennweite")));
+        BigDecimal bigDecimal = new BigDecimal("206").multiply(new BigDecimal(readConfig.readConfig("Pixel"))).divide(new BigDecimal(readConfig.readConfig("Brennweite")),4,BigDecimal.ROUND_HALF_UP);
         String abbildungsmassstab = bigDecimal.toString();
         /*
         ---------------------------------------------------------
         |https://www.sterngucker.de/astrofotografie/sampling/   |
         ---------------------------------------------------------
          */
-
         return abbildungsmassstab;
     }
-
 }

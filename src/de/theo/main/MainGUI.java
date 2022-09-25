@@ -2,10 +2,14 @@ package de.theo.main;
 
 import com.formdev.flatlaf.intellijthemes.FlatXcodeDarkIJTheme;
 import de.theo.configs.ConfigCreate;
+import de.theo.configs.ReadConfig;
+import de.theo.configs.UpdateConfig;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 
 
 public class MainGUI {
@@ -30,6 +34,13 @@ public class MainGUI {
                 frame.setIconImage(img);
                 frame.pack();
                 frame.setVisible(true);
+            }
+        });
+        DurchmesserPixelOk.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateConfig config = new UpdateConfig();
+                config.createEntry("FlaecheAbbildungsmasstab",FlaecheAbbildungsmasstab());
             }
         });
     }
@@ -65,7 +76,17 @@ public class MainGUI {
         }
     }
 
+    private String FlaecheAbbildungsmasstab(){
+        ReadConfig config = new ReadConfig();
+        BigDecimal flaecheAbbildungsmasstab = new BigDecimal(DurchmesserPixel.getText()).multiply(new BigDecimal(config.readConfig("Abbildungsmassstab"))).divide(new BigDecimal("2"),4,BigDecimal.ROUND_HALF_UP).pow(2).multiply(new BigDecimal(Math.PI));
+
+        return flaecheAbbildungsmasstab.toString();
+    }
+
+
 
     private JPanel MainWindow;
     private JButton einstellungenButton;
+    private JButton DurchmesserPixelOk;
+    private JTextField DurchmesserPixel;
 }
