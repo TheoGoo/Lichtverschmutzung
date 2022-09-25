@@ -1,2 +1,2 @@
-# GText
-Basic Text and Voicechat
+# Lichtverschmutzung
+Auswertung von Lichtverschmutzung anhand von Fotos
