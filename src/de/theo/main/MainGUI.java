@@ -36,11 +36,13 @@ public class MainGUI {
                 frame.setVisible(true);
             }
         });
-        DurchmesserPixelOk.addActionListener(new ActionListener() {
+        PixelFlaecheOk.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 UpdateConfig config = new UpdateConfig();
                 config.createEntry("FlaecheAbbildungsmasstab",FlaecheAbbildungsmasstab());
+                config.createEntry("Öffnungsverhältnis",FlaechenHelligkeit.getText());
+
             }
         });
     }
@@ -79,14 +81,23 @@ public class MainGUI {
     private String FlaecheAbbildungsmasstab(){
         ReadConfig config = new ReadConfig();
         BigDecimal flaecheAbbildungsmasstab = new BigDecimal(DurchmesserPixel.getText()).multiply(new BigDecimal(config.readConfig("Abbildungsmassstab"))).divide(new BigDecimal("2"),4,BigDecimal.ROUND_HALF_UP).pow(2).multiply(new BigDecimal(Math.PI));
-
+        //https://archiv.astronomicum.de/modules.php?name=News&file=article&sid=108
         return flaecheAbbildungsmasstab.toString();
+    }
+
+    private String FlaechenHelligkeit(){
+        ReadConfig config = new ReadConfig();
+        BigDecimal FHm = new BigDecimal("-2.5").multiply(new BigDecimal(FlaechenHelligkeit.getText()).divide(new BigDecimal(config.readConfig("FlaecheAbbildungsmasstab")),4,BigDecimal.ROUND_HALF_UP));
+
+        //https://archiv.astronomicum.de/modules.php?name=News&file=article&sid=108
+        return null;
     }
 
 
 
     private JPanel MainWindow;
     private JButton einstellungenButton;
-    private JButton DurchmesserPixelOk;
+    private JButton PixelFlaecheOk;
     private JTextField DurchmesserPixel;
+    private JTextField FlaechenHelligkeit;
 }
