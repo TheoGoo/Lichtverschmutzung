@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AstrophysikTheoGosch.iml" filepath="$PROJECT_DIR$/AstrophysikTheoGosch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestOpenCV/TestOpenCV.iml" filepath="$PROJECT_DIR$/TestOpenCV/TestOpenCV.iml" />
     </modules>
   </component>
 </project>
