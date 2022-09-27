@@ -73,7 +73,7 @@ public class HoughCirclesRun {
             }
         }
         int pixelValueVordergrund = pixelValue/counter;
-        System.out.println(pixelValueVordergrund);
+        //System.out.println(pixelValueVordergrund);
         config.createEntry("pixelValueVordergrund",pixelValueVordergrund+"");
 
         //Pixelvalue outside of mask
@@ -96,7 +96,7 @@ public class HoughCirclesRun {
             }
         }
         int hintergrundValue = pixelValueB/counterB;
-        System.out.println(hintergrundValue);
+        //System.out.println(hintergrundValue);
         config.createEntry("pixelValueHintergrund",hintergrundValue+"");
         /*
         HighGui.imshow("Test", gray);

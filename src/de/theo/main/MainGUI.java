@@ -56,8 +56,10 @@ public class MainGUI {
                 System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
                 new HoughCirclesRun().run();
                 pixelWertAusgabe.setText("Pixelwert(Durchschnitt) des Hintergrundes: "+configRead.readConfig("pixelValueHintergrund")+" | Pixelwert(Durchschnitt) Stern/Vordergrund: "+configRead.readConfig("pixelValueVordergrund"));
-
-
+                //VM und Hintergrund
+                VmBerechnen();
+                double hintergrund = Double.parseDouble(configRead.readConfig("FlaechenhelligkeitStern"))+Double.parseDouble(configRead.readConfig("vm"));
+                HelligkeitHintergrund.setText("Die Helligkeit des Hintergrundes beträgt: " + hintergrund + " mag/arsec^2");
             }
         });
         imageChooser.addActionListener(new ActionListener() {
@@ -117,6 +119,18 @@ public class MainGUI {
         return FHm+"";
     }
 
+    private void VmBerechnen(){
+        ReadConfig config = new ReadConfig();
+        UpdateConfig writer = new UpdateConfig();
+        double PWh = Double.parseDouble(config.readConfig("pixelValueHintergrund"));
+        double PWk = Double.parseDouble(config.readConfig("pixelValueVordergrund"));
+        double vm = -2.5*Math.log10(PWh/PWk);
+        writer.createEntry("vm",vm+"");
+
+    }
+
+
+
     private JPanel MainWindow;
     private JButton einstellungenButton;
     private JButton PixelFlaecheOk;
@@ -125,4 +139,5 @@ public class MainGUI {
     private JTextField FlaechenHelligkeitOutput;
     private JButton imageChooser;
     private JTextField pixelWertAusgabe;
+    private JTextField HelligkeitHintergrund;
 }
