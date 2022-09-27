@@ -50,14 +50,19 @@ public class MainGUI {
                 config.createEntry("FlaechenhelligkeitStern",FlaechenHelligkeitBerechnen());
                 config.createEntry("GroesseObjekt",DurchmesserPixel.getText());
                 FlaechenHelligkeitOutput.setText("Die Flächenhelligkeit des Sterns beträgt: " + FlaechenHelligkeitBerechnen() + " mag/arcsec^2");
+                //Bilderkennung
+                ReadConfig configRead = new ReadConfig();
+                System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+                new HoughCirclesRun().run();
+                pixelWertAusgabe.setText("Pixelwert(Durchschnitt) des Hintergrundes: "+configRead.readConfig("pixelValueHintergrund")+" | Pixelwert(Durchschnitt) Stern/Vordergrund: "+configRead.readConfig("pixelValueVordergrund"));
+
 
             }
         });
-        imageRecognitionButton.addActionListener(new ActionListener() {
+        imageChooser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-                new HoughCirclesRun().run();
+
             }
         });
     }
@@ -106,13 +111,12 @@ public class MainGUI {
         return FHm+"";
     }
 
-
-
     private JPanel MainWindow;
     private JButton einstellungenButton;
     private JButton PixelFlaecheOk;
     private JTextField DurchmesserPixel;
     private JTextField FlaechenHelligkeit;
     private JTextField FlaechenHelligkeitOutput;
-    private JButton imageRecognitionButton;
+    private JButton imageChooser;
+    private JTextField pixelWertAusgabe;
 }
