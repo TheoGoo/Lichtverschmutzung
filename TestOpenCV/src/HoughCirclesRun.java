@@ -50,7 +50,15 @@ class HoughCirclesRun {
         Rect rect = Imgproc.boundingRect(contours.get(0));
         Mat cropped = masked.submat(rect);
 
-        System.out.println(cropped.get(0,0)[0]);
+        //Pixel values of Mask
+        int pixelValue = 0;
+        for (int b=0;b<cropped.cols();b++){
+            for (int a=0;a<cropped.rows();a++){
+                pixelValue += cropped.get(a,b)[0];
+                System.out.println(pixelValue);
+            }
+        }
+
         HighGui.imshow("Cropped circle", cropped);
         HighGui.waitKey();
         System.exit(0);
