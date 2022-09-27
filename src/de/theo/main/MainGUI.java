@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.math.BigDecimal;
 
 
@@ -62,7 +63,12 @@ public class MainGUI {
         imageChooser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                UpdateConfig config = new UpdateConfig();
+                JFileChooser chooser= new JFileChooser();
+                int choice = chooser.showOpenDialog(null);
+                if (choice != JFileChooser.APPROVE_OPTION) return;
+                File chosenFile = chooser.getSelectedFile();
+                config.createEntry("imgPath",chosenFile+"");
             }
         });
     }

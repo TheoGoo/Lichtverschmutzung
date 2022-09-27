@@ -1,5 +1,6 @@
 package de.theo.OpenCV;
 
+import de.theo.configs.ReadConfig;
 import de.theo.configs.UpdateConfig;
 import org.opencv.core.*;
 import org.opencv.core.Point;
@@ -15,8 +16,9 @@ public class HoughCirclesRun {
 
         //Config updater
         UpdateConfig config = new UpdateConfig();
+        ReadConfig reader = new ReadConfig();
 
-        String filename = "D:\\IntelliJ-workspace\\Lichtverschmutzung\\TestOpenCV\\src\\image.jpg";
+        String filename = reader.readConfig("imgPath");
         // Load an image
         Mat src = Imgcodecs.imread(filename, Imgcodecs.IMREAD_COLOR);
         // Check if image is loaded fine
