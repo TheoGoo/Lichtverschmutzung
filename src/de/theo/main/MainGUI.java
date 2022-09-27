@@ -1,9 +1,11 @@
 package de.theo.main;
 
 import com.formdev.flatlaf.intellijthemes.FlatXcodeDarkIJTheme;
+import de.theo.OpenCV.HoughCirclesRun;
 import de.theo.configs.ConfigCreate;
 import de.theo.configs.ReadConfig;
 import de.theo.configs.UpdateConfig;
+import org.opencv.core.Core;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,6 +51,13 @@ public class MainGUI {
                 config.createEntry("GroesseObjekt",DurchmesserPixel.getText());
                 FlaechenHelligkeitOutput.setText("Die Flächenhelligkeit des Sterns beträgt: " + FlaechenHelligkeitBerechnen() + " mag/arcsec^2");
 
+            }
+        });
+        imageRecognitionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+                new HoughCirclesRun().run();
             }
         });
     }
@@ -105,4 +114,5 @@ public class MainGUI {
     private JTextField DurchmesserPixel;
     private JTextField FlaechenHelligkeit;
     private JTextField FlaechenHelligkeitOutput;
+    private JButton imageRecognitionButton;
 }

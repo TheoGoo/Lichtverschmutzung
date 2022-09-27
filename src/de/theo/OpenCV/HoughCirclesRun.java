@@ -1,3 +1,6 @@
+package de.theo.OpenCV;
+
+import de.theo.configs.UpdateConfig;
 import org.opencv.core.*;
 import org.opencv.core.Point;
 import org.opencv.highgui.HighGui;
@@ -7,8 +10,12 @@ import org.opencv.imgproc.Imgproc;
 import java.util.ArrayList;
 import java.util.List;
 
-class HoughCirclesRun {
-    public void run(String[] args) {
+public class HoughCirclesRun {
+    public void run() {
+
+        //Config updater
+        UpdateConfig config = new UpdateConfig();
+
         String filename = "D:\\IntelliJ-workspace\\Lichtverschmutzung\\TestOpenCV\\src\\image.jpg";
         // Load an image
         Mat src = Imgcodecs.imread(filename, Imgcodecs.IMREAD_COLOR);
@@ -52,15 +59,47 @@ class HoughCirclesRun {
 
         //Pixel values of Mask
         int pixelValue = 0;
+        int counter = 0;
         for (int b=0;b<cropped.cols();b++){
             for (int a=0;a<cropped.rows();a++){
                 pixelValue += cropped.get(a,b)[0];
-                System.out.println(pixelValue);
+                if (cropped.get(a,b)[0] != 0){
+                    counter++;
+                    //System.out.println("counter: " + counter);
+                }
+                //System.out.println(pixelValue);
             }
         }
+        int pixelValueVordergrund = pixelValue/counter;
+        System.out.println(pixelValueVordergrund);
+        config.createEntry("pixelValueVordergrund",pixelValueVordergrund+"");
 
+        //Pixelvalue outside of mask
+        for (int x = 0; x < circles.cols(); x++) {
+            double[] c = circles.get(0, x);
+            Point center = new Point(Math.round(c[0]), Math.round(c[1]));
+            int radius = (int) Math.round(c[2]);
+            Imgproc.circle(gray, center, radius+3, new Scalar(0,0,0), -1, 8, 0 );
+        }
+        int pixelValueB = 0;
+        int counterB = 0;
+        for (int b=0;b<gray.cols();b++){
+            for (int a=0;a<gray.rows();a++){
+                pixelValueB += gray.get(a,b)[0];
+                if (gray.get(a,b)[0] != 0){
+                    counterB++;
+                    //System.out.println("counter: " + counterB);
+                }
+                //System.out.println(pixelValueB);
+            }
+        }
+        int hintergrundValue = pixelValueB/counterB;
+        System.out.println(hintergrundValue);
+        config.createEntry("pixelValueHintergrund",hintergrundValue+"");
+        /*
+        HighGui.imshow("Test", gray);
         HighGui.imshow("Cropped circle", cropped);
         HighGui.waitKey();
-        System.exit(0);
+        System.exit(0);*/
     }
 }
