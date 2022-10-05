@@ -124,7 +124,7 @@ public class MainGUI {
         UpdateConfig writer = new UpdateConfig();
         double PWh = Double.parseDouble(config.readConfig("pixelValueHintergrund"));
         double PWk = Double.parseDouble(config.readConfig("pixelValueVordergrund"));
-        double vm = -2.5*Math.log10(PWh/PWk);
+        double vm = -2.5*Math.log10(PWh/PWk)+2.5*Math.log10(PWk-PWh);
         writer.createEntry("vm",vm+"");
 
     }
